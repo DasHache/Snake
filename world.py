@@ -2,6 +2,12 @@ from Tkinter import *
 import random
 
 class Ground(Canvas):
+    def __init__(self, space, w, h):
+        Canvas.__init__(self, space, bg='black', height=h, width=w)
+        self.place(x=0, y=0)
+
+
+class World:
 
     step = 50
     h = 500
@@ -9,10 +15,16 @@ class Ground(Canvas):
     xs = range(w/step)
     ys = range(h/step)
     
-    def __init__(self, space):
-        Canvas.__init__(self, space, bg='black', height=self.h, width=self.w)
-        self.place(x=0, y=0)
+    def __init__(self):
+        # window
+        self.space = Tk()
+        self.space.geometry(str(self.h)+"x"+str(self.w))
+        # canvas
+        self.ground = Ground(self.space, self.w, self.h)
+        self.cells = [ x+y*10  for x in self.xs for y in self.ys]
         self.coords = [ [x,y] for x in self.xs for y in self.ys]
+
+        self.draw()
 
     def draw(self):
         for y in self.ys:
@@ -23,30 +35,12 @@ class Ground(Canvas):
     def draw_parallel(self, i):
         y = 0 + i * self.step
         print('y = ', y)
-        self.create_line(0, y, self.w, y, fill="dark grey")
+        self.ground.create_line(0, y, self.w, y, fill="dark grey")
         
     def draw_meridian(self, i):
         x = 0 + i * self.step
         print('x = ', x)
-        self.create_line(x, 0, x, self.h, fill="dark grey")
-
-
-class World:
-
-    s = 50
-    h = 500
-    w = 500
-    
-    def __init__(self):
-        # window
-        self.space = Tk()
-        self.space.geometry(str(self.h)+"x"+str(self.w))
-        # canvas
-        self.ground = Ground(self.space)
-        self.ground.draw()
-        self.cells = [ x+y*10  for x in self.xs for y in self.ys]
-
-        
+        self.ground.create_line(x, 0, x, self.h, fill="dark grey")
         
     def rand(self):
         rand_y = random.randint(self.border, self.ground.h)
