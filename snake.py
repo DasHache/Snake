@@ -5,16 +5,11 @@ import time, threading
 class Snake:
     speed=0.1
     snakestep=9
-    def __init__(self, canvas,x,y):
-        self.ground = canvas
+    def __init__(self):
         self.width = 10
         self.height = 10
         self.name = 'snake'
-        self.coord_x = x
-        self.coord_y = y
         self.dir = "stop"
-        self.draw()
-        self.move()
 
     def draw(self):
         x = self.coord_x
