@@ -1,5 +1,6 @@
 from Tkinter import *
 import random
+import time, threading
 
 class Ground(Canvas):
     def __init__(self, space, w, h):
@@ -9,16 +10,29 @@ class Ground(Canvas):
 
 class Cell:
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, size):
         self.id = 0
         self.x = x
         self.y = y
+        self.s = size
         self.hab = 0
 
+    def draw(self, g):
+        print 'On dessin la cellule: [' + str(self.x) +','+ str(self.y)+']'
+        if self.hab != 0:
+            print '! On dessin un habitant dans cette cellule: ' + str(self.hab.name)
+            
+        # x1 = self.x * self.s
+        # y1 = self.y * self.s
+        # x2 = x1 + self.s
+        # y2 = y1 + self.s
+        # print('Cell.draw: ', x1, y1, x2, y2)
+        # g.create_oval(x1, y1, x2, y2, fill="red")
 
-
+        
 class World:
 
+    speed = 1 #update every 1s
     step = 50
     h = 500
     w = 500
@@ -32,7 +46,7 @@ class World:
         # canvas
         self.ground = Ground(self.space, self.w, self.h)
         self.coords = [ [x,y] for x in self.xs for y in self.ys]
-        self.cells = [ [Cell(x, y)  for y in self.ys] for x in self.xs]
+        self.cells = [ [Cell(x, y, self.step)  for y in self.ys] for x in self.xs]
 
         self.draw()
 
@@ -42,7 +56,8 @@ class World:
         for x in self.xs:
             self.draw_meridian(x)
 
-        [[c.hab.draw() for c in r if c.id != 0] for r in self.cells]
+        #[[c.hab.draw() for c in r if c.id != 0] for r in self.cells]
+        [[c.draw(self.ground) for c in r] for r in self.cells]
 
     def draw_parallel(self, i):
         y = 0 + i * self.step
@@ -72,11 +87,23 @@ class World:
         
     def start(self):
         self.space.bind('<KeyPress>', self.change_direction)
+        self.run_update()
         self.space.mainloop()
 
-    def add(self,object,x,y):
+    def update(self):
+        print 'update'
+        self.draw()
+        
+    def run_update(self):
+        print 'run_update'
+        self.update()
+        threading.Timer(self.speed, self.run_update).start()
+        
+
+        
+    def add(self, object, x, y):
         c = self.cells[x][y]
-        c.id=1
+        c.id = 1
         c.hab = object
 
 

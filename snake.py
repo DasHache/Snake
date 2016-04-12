@@ -2,6 +2,16 @@ __author__ = 'DasHache'
 import time, threading
 ################################ Snake Class
 
+# class WorldObjectPart:
+
+#     def __init__(self):
+        
+# class WorldObject:
+
+#     def __init__(self):
+#         self.size = [nX, nY] # number of cell by x, by y
+#         self.shape = [[WorldObjectPart(x, y) for x in nX] for y in nY]
+
 class Snake:
     speed=0.1
     snakestep=9
@@ -12,6 +22,7 @@ class Snake:
         self.dir = "stop"
 
     def draw(self):
+        
         pass
         # x = self.coord_x
         # y = self.coord_y
