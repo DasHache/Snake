@@ -18,24 +18,41 @@ class Cell:
         self.hab = 0
 
     def draw(self, g):
-        print 'On dessin la cellule: [' + str(self.x) +','+ str(self.y)+']'
+        print 'On dessine la cellule: [' + str(self.x) +','+ str(self.y)+']'
         if self.hab != 0:
             print '! On dessin un habitant dans cette cellule: ' + str(self.hab.name)
             
-        # x1 = self.x * self.s
-        # y1 = self.y * self.s
-        # x2 = x1 + self.s
-        # y2 = y1 + self.s
-        # print('Cell.draw: ', x1, y1, x2, y2)
-        # g.create_oval(x1, y1, x2, y2, fill="red")
+        x1 = self.x * self.s
+        y1 = self.y * self.s
+        x2 = x1 + self.s
+        y2 = y1 + self.s
+        print('Cell.draw: ', x1, y1, x2, y2)
+        g.create_oval(x1, y1, x2, y2, fill="red")
+
+    def draw2(self, g, color):
+        #print 'On dessine la cellule: [' + str(self.x) +','+ str(self.y)+']'
+        if self.hab != 0:
+            print '! On dessin un habitant dans cette cellule: ' + str(self.hab.name)
+            x1 = self.x * self.s
+            y1 = self.y * self.s
+            x2 = x1 + self.s
+            y2 = y1 + self.s
+            g.create_oval(x1, y1, x2, y2, fill="red")
+        #time.sleep(0.1)
+        x1 = self.x * self.s
+        y1 = self.y * self.s
+        x2 = x1 + self.s
+        y2 = y1 + self.s
+        #print('Cell.draw: ', x1, y1, x2, y2)
+       # g.create_rectangle(x1, y1, x2, y2, fill=color)
 
         
 class World:
 
     speed = 1 #update every 1s
     step = 50
-    h = 500
-    w = 500
+    h = step*10
+    w = step*10
     xs = range(w/step)
     ys = range(h/step)
     
@@ -57,7 +74,9 @@ class World:
             self.draw_meridian(x)
 
         #[[c.hab.draw() for c in r if c.id != 0] for r in self.cells]
-        [[c.draw(self.ground) for c in r] for r in self.cells]
+        colors = ["blue", "red", "green", "yellow", "magenta"]
+        color = colors[random.randint(0,4)]
+        [[c.draw2(self.ground, color) for c in r] for r in self.cells]
 
     def draw_parallel(self, i):
         y = 0 + i * self.step

@@ -10,7 +10,7 @@ w = World()
 
 vasya = Snake()
 
-w.add(vasya, 3, 2)
+w.add(vasya,0, 8)
 w.draw()
 w.start()
 
