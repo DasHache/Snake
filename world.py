@@ -32,7 +32,7 @@ class World:
         # canvas
         self.ground = Ground(self.space, self.w, self.h)
         self.coords = [ [x,y] for x in self.xs for y in self.ys]
-        self.cells = [ Cell(x, y)  for y in self.ys for x in self.xs]
+        self.cells = [ [Cell(x, y)  for y in self.ys] for x in self.xs]
 
         self.draw()
 
@@ -42,9 +42,7 @@ class World:
         for x in self.xs:
             self.draw_meridian(x)
 
-        for c in self.cells:
-            if c.id != 0:
-                c.hab.draw()
+        [[c.hab.draw() for c in r if c.id != 0] for r in self.cells]
 
     def draw_parallel(self, i):
         y = 0 + i * self.step
@@ -77,12 +75,11 @@ class World:
         self.space.mainloop()
 
     def add(self,object,x,y):
-        n = self.w/self.step * y +x
-        c = self.cells[n]
+        c = self.cells[x][y]
         c.id=1
         c.hab = object
 
 
     def pr(self):
-        for c in self.cells:
-            print("cell [", c.x, ',', c.y, '] = ',  c.id)
+        [[ self.cells[x][y].id  for y in self.ys] for x in self.xs]
+        
