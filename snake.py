@@ -23,13 +23,13 @@ class Snake:
 
     def draw(self):
         
-        pass
-        # x = self.coord_x
-        # y = self.coord_y
-        # x1 = x - self.width
-        # y1 = y - self.height
-        # x2 = x + self.width
-        # y2 = y + self.height
+
+         x = self.coord_x
+         y = self.coord_y
+         x1 = x - self.width
+         y1 = y - self.height
+         x2 = x + self.width
+         y2 = y + self.height
 
         # self.body = self.ground.create_oval(x1,y1,x2,y2,fill="blue")
 

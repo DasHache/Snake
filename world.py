@@ -17,6 +17,10 @@ class Cell:
         self.s = size
         self.hab = 0
 
+    def move(self, qq):
+        print "elle bouge"
+        pass
+
     def draw(self, g):
         print 'On dessine la cellule: [' + str(self.x) +','+ str(self.y)+']'
         if self.hab != 0:
@@ -37,7 +41,9 @@ class Cell:
             y1 = self.y * self.s
             x2 = x1 + self.s
             y2 = y1 + self.s
-            g.create_oval(x1, y1, x2, y2, fill="red")
+            g.create_oval(x1, y1, x2, y2, fill="blue")
+
+
         #time.sleep(0.1)
         x1 = self.x * self.s
         y1 = self.y * self.s
@@ -66,6 +72,10 @@ class World:
         self.cells = [ [Cell(x, y, self.step)  for y in self.ys] for x in self.xs]
 
         self.draw()
+
+    def move(self):
+        [[c.move(self.ground ) for c in r] for r in self.cells]
+
 
     def draw(self):
         for y in self.ys:
@@ -111,7 +121,12 @@ class World:
 
     def update(self):
         print 'update'
+
+        # change the world
+
+        self.move()
         self.draw()
+
         
     def run_update(self):
         print 'run_update'

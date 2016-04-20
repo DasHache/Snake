@@ -7,10 +7,9 @@ from ptitpois import Ptitpois
 from world import World
 
 w = World()
-
 vasya = Snake()
 
-w.add(vasya,0, 8)
+w.add(vasya,5, 5)
 w.draw()
 w.start()
 
