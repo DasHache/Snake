@@ -2,29 +2,36 @@ __author__ = 'DasHache'
 import time, threading
 ################################ Snake Class
 
+# class WorldObjectPart:
+
+#     def __init__(self):
+        
+# class WorldObject:
+
+#     def __init__(self):
+#         self.size = [nX, nY] # number of cell by x, by y
+#         self.shape = [[WorldObjectPart(x, y) for x in nX] for y in nY]
+
 class Snake:
     speed=0.1
     snakestep=9
-    def __init__(self, canvas,x,y):
-        self.ground = canvas
+    def __init__(self):
         self.width = 10
         self.height = 10
         self.name = 'snake'
-        self.coord_x = x
-        self.coord_y = y
         self.dir = "stop"
-        self.draw()
-        self.move()
 
     def draw(self):
-        x = self.coord_x
-        y = self.coord_y
-        x1 = x - self.width
-        y1 = y - self.height
-        x2 = x + self.width
-        y2 = y + self.height
+        
 
-        self.body = self.ground.create_oval(x1,y1,x2,y2,fill="blue")
+         x = self.coord_x
+         y = self.coord_y
+         x1 = x - self.width
+         y1 = y - self.height
+         x2 = x + self.width
+         y2 = y + self.height
+
+        # self.body = self.ground.create_oval(x1,y1,x2,y2,fill="blue")
 
     def draw_move(self):
         x = self.coord_x
